@@ -1,0 +1,79 @@
+Users:
+    - id (primary key) (tg_id)
+    - username
+    - first_name
+    - last_name 
+    - 
+    - is_active
+    - is_blocked
+    - is_premium
+    - created_at
+    - updated_at  
+
+Chats:
+    - id (primary key)
+    - user_id (foreign key на пользователя)
+    - lead_name (имя человека, с которым идет переписка, название компании)
+    - messages (переписка с лидом. 1. чел скинул переписку. 2. бот скинул follow-up. 3. скинул продолжение переписки 4. бот скинул новый follow-up)
+    - lead_score (Оценка лида по 100-бальной шкале)
+
+    - created_at 
+    - updated_at 
+
+
+Messages: 
+    - id (primary key) 
+    - chat_id (foreign key на chat_id)
+    - sender (Перечисление: system, bot, user)
+    - text (Текст сообщения/переписки)
+    
+    - metadata
+    - created_at 
+    - updated_at 
+
+Subscribitions:
+    - name 
+    - 
+
+User
+
+
+Формат поля metadata: 
+1. Для пользователя 
+{
+    "media": [список фотографий]
+    "tokens": Количество затраченных токенов при обращении к боту
+}
+2. Для бота 
+{
+    "lead_score": 100. Оценка лида. Она нужна в каждом его сообщении, чтобы например показывать как менялась данная оценка с каждым новым сообщением пользователя
+    "tokens": Количество затраченных токенов на ответ ботом
+}
+
+
+Формат messages: 
+[
+    {
+        "sender": "system", 
+        "text": "1 ноября", 
+        "timestamp": временная метка
+    }, 
+    {
+        "sender": "user", 
+        "text": "Весь чат переписки текстом",
+        "media": [список ссылок/путей к картинкам],  
+        "timestamp": временная метка 
+    }, 
+    {
+        "sender": "bot", 
+        "text": "Оценка лида: такая та. Необходимо написать то-то", 
+        "lead_score": 49,
+        "timestamp": временная метка 
+    }, 
+    {
+        "sender": "system", 
+        "text": "1 ноября", 
+        "timestamp"
+    }, 
+]
+
